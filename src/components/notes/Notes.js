@@ -8,11 +8,12 @@ function Notes() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const mContext = useContext(MyContext);
+  const notesEndpoint = 'starter-app-js-notes';
 
   const config = {
     token: mContext.user.token,
     apiVersion: appConfig.hatApiVersion,
-    secure: false,
+    secure: appConfig.secure,
   };
 
   const hat = new HatClient(config);
@@ -34,7 +35,7 @@ function Notes() {
       value: newNote,
       dateCreated: dateCreated,
     };
-    const res = await hat.hatData().create(appConfig.namespace, appConfig.endpoint, body);
+    const res = await hat.hatData().create(appConfig.namespace, notesEndpoint, body);
 
     if (res.parsedBody) {
       setNewNote('');
@@ -46,7 +47,7 @@ function Notes() {
     try {
       const res = await hat
         .hatData()
-        .getAll(appConfig.namespace, appConfig.endpoint, { ordering: 'descending', orderBy: 'dateCreated' });
+        .getAll(appConfig.namespace, notesEndpoint, { ordering: 'descending', orderBy: 'dateCreated' });
 
       if (res.parsedBody) {
         setNotes(res.parsedBody);

@@ -1,7 +1,8 @@
 {
-  "name": "hat-starter-app-web",
+  "name": "hat-starter-app-js",
   "version": "0.1.0",
   "private": true,
+  "license": "MPL-2.0",
   "dependencies": {
     "@dataswift/hat-js": "^0.1.2",
     "@testing-library/jest-dom": "^4.2.4",

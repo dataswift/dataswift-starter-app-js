@@ -11,7 +11,7 @@ function Applications() {
   const config = {
     token: mContext.user.token,
     apiVersion: appConfig.hatApiVersion,
-    secure: false,
+    secure: appConfig.secure,
   };
   const hat = new HatClient(config);
 

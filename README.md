@@ -1,68 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# HAT Starter app for JavaScript
+[Open a new issue on Github][2]
 
-## Available Scripts
+A simple application showcasing how you can work with the `HAT` in a
+JavaScript app, including log in and sign up. The purpose of the app is to showcase
+log in, registration and simple read/write operations. Also you can use it to
+build on it your own application.
+​
+## Getting Started
+You can start by either downloading the project or cloning it.
+​
+## Prerequisites
+```
+Node 12.13.0
+NPM 6.12
+```
 
-In the project directory, you can run:
+## Installing
+You'll need to have Node to run this application. You can download it [here][3].
 
-### `yarn start`
+Make sure you have Node and NPM installed by running simple commands to see their current version.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**For Node:**
+```
+node -v
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**For NPM:**
+```
+npm -v
+```
 
-### `yarn test`
+## Development server
+Run `npm install` or `yarn install` to install all the required dependencies and then run `npm start` or `yarn start` for a dev server. 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Then navigate to `http://localhost:3000/` to see the app. The app will automatically reload if you change any of the source files. 
 
-### `yarn build`
+## Testing
+In the HAT Starter app you can log in with your existing testing HAT or sign up for a new one. If you want to [run 
+the HAT on a localhost][4] you have to pass the [Access token][5] as a parameter.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Example:**
+```
+http://localhost:3000/authentication?token=<Access-Token>
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Configuration
+You can change the configuration with your application details.
+``` javascript
+export const appConfig = {
+  applicationId: 'testhatapp', // The application ID.
+  namespace: 'testhatapp', // The application's namespace.
+  hatCluster: '.hubat.net', // The HAT's cluster for the Login. In this case we are using '.hubat.net' for testing purposes.
+  hatApiVersion: 'v2.6', // The API version of the HAT. 
+  secure: true, // If you want to run the HAT locally, you have to modify this field to 'false'.
+};
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
+Copyright (C) 2020 Dataswift Ltd
 
-### `yarn eject`
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at http://mozilla.org/MPL/2.0/
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[1]: https://developers.hubofallthings.com/guides/android-guide
+[2]: https://github.com/Hub-of-all-Things/hat-starter-app-js/issues
+[3]: https://nodejs.org/
+[4]: https://docs.dataswift.io/documentation/quick-start#run-hat-locally-from-source-code
+[5]: https://docs.dataswift.io/guides/hat-login
