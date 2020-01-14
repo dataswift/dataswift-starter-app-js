@@ -39,5 +39,8 @@
   },
   "devDependencies": {
     "prettier": "^1.19.1"
+  },
+  "peerDependencies": {
+    "serialize-javascript": "^2.1.2"
   }
 }
