@@ -1,115 +1,133 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {HatClient} from "@dataswift/hat-js";
-import "./Notes.scss";
-import MyContext from "../context/MyContext";
-import {appConfig} from "../../app.config";
+import React, { useContext, useEffect, useState } from 'react';
+import { HatClient } from '@dataswift/hat-js';
+import './Notes.scss';
+import MyContext from '../context/MyContext';
+import { appConfig } from '../../app.config';
 
 function Notes() {
-    const [notes, setNotes] = useState([]);
-    const [newNote, setNewNote] = useState("");
-    const mContext = useContext(MyContext);
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState('');
+  const mContext = useContext(MyContext);
 
-    const config = {
-        token: mContext.user.token,
-        apiVersion: appConfig.hatApiVersion,
-        secure: false
+  const config = {
+    token: mContext.user.token,
+    apiVersion: appConfig.hatApiVersion,
+    secure: false,
+  };
+
+  const hat = new HatClient(config);
+
+  const handleChange = event => {
+    setNewNote(event.target.value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    saveData();
+  };
+
+  const saveData = async () => {
+    if (!newNote) return;
+    const dateCreated = new Date().toISOString();
+
+    const body = {
+      value: newNote,
+      dateCreated: dateCreated,
     };
+    const res = await hat.hatData().create(appConfig.namespace, appConfig.endpoint, body);
 
-    const hat = new HatClient(config);
+    if (res.parsedBody) {
+      setNewNote('');
+      fetchNotes();
+    }
+  };
 
-    const handleChange = (text) => {
-        setNewNote(text);
-    };
+  const fetchNotes = async () => {
+    try {
+      const res = await hat
+        .hatData()
+        .getAll(appConfig.namespace, appConfig.endpoint, { ordering: 'descending', orderBy: 'dateCreated' });
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        saveData();
-    };
+      if (res.parsedBody) {
+        setNotes(res.parsedBody);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-    const saveData = async () => {
-        if (!newNote) return;
-        const dateCreated = new Date().toISOString();
+  const deleteData = async recordId => {
+    try {
+      const res = await hat.hatData().delete([recordId]);
 
-        const body = {
-            value: newNote,
-            dateCreated: dateCreated,
-        };
-        const res = await hat.hatData().create(appConfig.namespace, appConfig.endpoint, body);
+      if (res.parsedBody) {
+        fetchNotes();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-        if (res.parsedBody) {
-            setNewNote("");
-            getData();
-        }
-    };
+  const updateData = async hatRecord => {
+    hatRecord.data.value += 1;
+    try {
+      const res = await hat.hatData().update([hatRecord]);
 
-    const getData = async () => {
-        try {
-            const res = await hat.hatData().getAll(appConfig.namespace, appConfig.endpoint, {ordering: 'descending', orderBy: 'dateCreated'});
+      if (res.parsedBody) {
+        fetchNotes();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-            if (res.parsedBody) {
-                setNotes(res.parsedBody);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
-    const deleteData = async (recordId) => {
-        const res = await hat.hatData().delete([recordId]);
+  return (
+    <form
+      onSubmit={e => handleSubmit(e)}
+      className={'notes-wrapper flex-column-wrapper flex-content-center flex-align-items-center'}
+    >
+      <div className={'flex-spacer-small'} />
+      <h3>Save a note on your HAT</h3>
+      <input
+        name={'note'}
+        type={'text'}
+        placeholder="What's on your mind?"
+        autoComplete={'text'}
+        value={newNote}
+        onChange={e => handleChange(e)}
+      />
 
-        if (res.parsedBody) {
-            getData();
-        }
-    };
+      <div className={'flex-spacer-small'} />
 
-    const updateData = async (hatRecord) => {
-        hatRecord.data.value += 1;
-        const res = await hat.hatData().update([hatRecord]);
+      <button className={'btn btn-accent'} type={'submit'}>
+        Save
+      </button>
 
-        if (res.parsedBody) {
-            getData();
-        }
-    };
+      <div className={'flex-spacer-small'} />
 
-    useEffect(() => {
-        getData();
-    }, []);
-
-    return (
-        <form onSubmit={e => handleSubmit(e)} className={'notes-wrapper flex-column-wrapper flex-content-center flex-align-items-center'}>
-            <div className={'flex-spacer-small'}/>
-            <h3>Save a note on your HAT</h3>
-            <input
-                name={'note'}
-                type={'text'}
-                placeholder="What's on your mind?"
-                autoComplete={'text'}
-                value={newNote}
-                onChange={e => handleChange(e.target.value)}
-            />
-
-            <div className={'flex-spacer-small'}/>
-
-            <button className={'btn btn-accent'} type={'submit'}>Save</button>
-
-            <div className={'flex-spacer-small'}/>
-
-            <ul className={'notes-list'}>
-                {notes.map((item, index) => {
-                    return (
-                        <li key={index}>
-                            <div className={'note-row-wrapper'}>
-                                <div className={'note-content'}>{item.data.value}</div>
-                                <button type={"button"} onClick={() => deleteData(item.recordId)}><i className={'material-icons'}>delete</i></button>
-                                <button type={"button"} onClick={() => updateData(item)}><i className={'material-icons'}>edit</i></button>
-                            </div>
-                        </li>
-                    )
-                })
-                }
-            </ul>
-        </form>
-    );
+      <ul className={'notes-list'}>
+        {notes.map((item, index) => {
+          return (
+            <li key={index}>
+              <div className={'note-row-wrapper'}>
+                <div className={'note-content'}>{item.data.value}</div>
+                <button type={'button'} onClick={() => deleteData(item.recordId)}>
+                  <i className={'material-icons'}>delete</i>
+                </button>
+                <button type={'button'} onClick={() => updateData(item)}>
+                  <i className={'material-icons'}>edit</i>
+                </button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </form>
+  );
 }
 
 export default Notes;

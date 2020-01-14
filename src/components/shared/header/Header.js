@@ -1,45 +1,43 @@
-import React from "react";
-import {Link, NavLink} from "react-router-dom";
-import "./Header.scss";
-import MyContext from "../../context/MyContext";
+import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import './Header.scss';
+import MyContext from '../../context/MyContext';
 
 function Header() {
+  return (
+    <MyContext.Consumer>
+      {context => (
+        <>
+          <header className="header">
+            <NavLink exact activeClassName="active" to="/">
+              Home
+            </NavLink>
 
-    return (
-        <MyContext.Consumer>
-            {context => (
-                <>
-                    <header className="header">
-                        <NavLink exact activeClassName="active" to="/">
-                            Home
-                        </NavLink>
-
-                        {context.user.isAuthenticated &&
-
-                        <Link to="/login" onClick={ () => context.logout()}>
-                            Logout
-                        </Link>
-                        }
-
-                        {!context.user.isAuthenticated &&
-                        <ul>
-                            <li>
-                                <NavLink activeClassName="active" to="/login">
-                                    Login
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink activeClassName="active" to="/signup">
-                                    Create Account
-                                </NavLink>
-                            </li>
-                        </ul>
-                        }
-                    </header>
-                </>
+            {context.user.isAuthenticated && (
+              <Link to="/login" onClick={() => context.logout()}>
+                Log out
+              </Link>
             )}
-        </MyContext.Consumer>
-    );
+
+            {!context.user.isAuthenticated && (
+              <ul>
+                <li>
+                  <NavLink activeClassName="active" to="/login">
+                    Log in
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink activeClassName="active" to="/signup">
+                    Create account
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </header>
+        </>
+      )}
+    </MyContext.Consumer>
+  );
 }
 
 export default Header;
