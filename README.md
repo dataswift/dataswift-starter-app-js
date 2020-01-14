@@ -36,8 +36,9 @@ Run `npm install` or `yarn install` to install all the required dependencies and
 Then navigate to `http://localhost:3000/` to see the app. The app will automatically reload if you change any of the source files. 
 
 ## Testing
-In the HAT Starter app you can log in with your existing testing HAT or sign up for a new one. If you want to [run 
-the HAT on a localhost][4] you have to pass the [Access token][5] as a parameter.
+In the HAT Starter app you can sign in to an existing testing HAT or you can create a new one. 
+
+If you are [running the HAT on a localhost][4] you have to pass the [Access token][5] as a parameter.
 
 **Example:**
 ```
