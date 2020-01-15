@@ -4,6 +4,14 @@ import './Notes.scss';
 import MyContext from '../context/MyContext';
 import { appConfig } from '../../app.config';
 
+/**
+ * Notes
+ *
+ * This is the Notes function component, it is accessible at the '/' route when
+ * the user is authenticated.
+ *
+ * This is an example of how to read / write / update / delete data from the HAT.
+ */
 function Notes() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');

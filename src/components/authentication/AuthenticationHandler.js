@@ -1,7 +1,17 @@
 import React, { useEffect } from 'react';
-import { getParameterByName } from '../../utils/WindowHelper';
+import { getParameterByName } from '../../utils/windowHelper';
 import { useHistory } from 'react-router';
 
+/**
+ * AuthenticationHandler
+ *
+ * This is the authentication handler of our App, handles the 'token' or 'error'
+ * parameters at the '/authentication' route.
+ *
+ * If the token is valid, it stores it in the session storage and navigate the user back to '/' route.
+ *
+ * If error is attached to the parameters, navigates the user back to the Login Page.
+ */
 function AuthenticationHandler() {
   const history = useHistory();
 

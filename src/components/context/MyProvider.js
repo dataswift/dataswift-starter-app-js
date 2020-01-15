@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import MyContext from './MyContext';
 
+/**
+ * MyProvider
+ *
+ * This is a High Order Component for providing a state to child components.
+ * In this case we are storing details about the user and functions to handle authentication.
+ */
+
 export class MyProvider extends Component {
   state = {
     user: {

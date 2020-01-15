@@ -1,19 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from '../authentication/Login';
 import Header from '../shared/header/Header';
-import Home from '../home/Home';
 import AuthenticationHandler from '../authentication/AuthenticationHandler';
-import Registration from '../registration/Registration';
+import HomePage from '../home/HomePage';
+import LoginPage from '../authentication/LoginPage';
+import RegistrationPage from '../registration/RegistrationPage';
+
+/**
+ * Routing
+ *
+ * This is the routing of our App.
+ */
 
 function Routing() {
   return (
     <Router>
       <Header />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Registration} />
+        <Route exact path="/" component={HomePage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={RegistrationPage} />
         <Route path="/authentication" component={AuthenticationHandler} />
       </Switch>
     </Router>

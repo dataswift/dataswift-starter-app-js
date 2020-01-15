@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import { appConfig } from '../../app.config';
 import { isEmail, isHatName } from '../../utils/validations';
 
-function Registration() {
+/**
+ * RegistrationPage
+ *
+ * This is the Registration Page of our App, it is accessible at the '/signup' route.
+ *
+ * In this example we are using the BaaS (Backend as a Service) solution.
+ */
+
+function RegistrationPage() {
   const initUser = {
     username: '',
     email: '',
@@ -93,4 +101,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default RegistrationPage;

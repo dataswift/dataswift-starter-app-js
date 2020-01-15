@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { isEmail, isHatName } from '../../utils/validations';
 import { appConfig } from '../../app.config';
 
-function Login() {
+/**
+ * LoginPage
+ *
+ * This is the Login Page of our App, it is accessible at the '/login' route.
+ */
+
+function LoginPage() {
   const [username, setUsername] = useState('');
   const [hasError, setHasError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -73,4 +79,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

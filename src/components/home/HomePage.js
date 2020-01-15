@@ -2,9 +2,16 @@ import React, { useEffect, useContext } from 'react';
 import Dashboard from '../dashboard/Dashboard';
 import MyContext from '../context/MyContext';
 import { Jwt } from '@dataswift/hat-js/lib/auth/jwt';
-import './Home.scss';
+import './HomePage.scss';
 
-function Home() {
+/**
+ * HomePage
+ *
+ * This is the first thing users see of our App, at the '/' route.
+ * Checks if the user is authenticated and displays the dashboard in this case.
+ */
+
+function HomePage() {
   const mContext = useContext(MyContext);
 
   useEffect(() => {
@@ -29,4 +36,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

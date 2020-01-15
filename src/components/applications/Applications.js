@@ -4,6 +4,13 @@ import './Applications.scss';
 import { appConfig } from '../../app.config';
 import MyContext from '../context/MyContext';
 
+/**
+ * Applications
+ *
+ * This is a function component to fetch and display as a list all the available
+ * applications when the user is authenticated.
+ */
+
 function Applications() {
   const [apps, setApps] = useState([]);
   const mContext = useContext(MyContext);
@@ -15,6 +22,10 @@ function Applications() {
   };
   const hat = new HatClient(config);
 
+  /**
+   * Fetches all the available applications and store them in the React state.
+   * @returns {Promise<void>}
+   */
   const getApps = async () => {
     try {
       const apps = await hat.applications().getAllDefault();
