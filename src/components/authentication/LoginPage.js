@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { isEmail, isHatName } from '../../utils/validations';
 import { appConfig } from '../../app.config';
+import { HatClient } from '@dataswift/hat-js';
 
 /**
  * LoginPage
@@ -19,12 +20,14 @@ function LoginPage() {
   };
 
   const redirectValidUser = username => {
+    const hat = new HatClient({});
+
+    const hatUrl = `https://${username + appConfig.hatCluster}`;
     const redirectUrl = `http://${window.location.host}/authentication`;
     const fallback = `http://${window.location.host}/authentication`;
-    const APP_ID = appConfig.applicationId;
+    const applicationId = appConfig.applicationId;
 
-    window.location.href = `https://${username +
-      appConfig.hatCluster}/hatlogin?name=${APP_ID}&redirect=${redirectUrl}&fallback=${fallback}`;
+    window.location.href = hat.auth().generateHatLoginUrl(hatUrl, applicationId, redirectUrl, fallback);
   };
 
   const handleChange = text => {

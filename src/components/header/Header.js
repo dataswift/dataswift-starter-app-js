@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './Header.scss';
-import MyContext from '../../context/MyContext';
+import AuthContext from '../context/AuthContext';
 
 /**
  * Header
@@ -11,7 +11,7 @@ import MyContext from '../../context/MyContext';
 
 function Header() {
   return (
-    <MyContext.Consumer>
+    <AuthContext.Consumer>
       {context => (
         <>
           <header className="header">
@@ -42,7 +42,7 @@ function Header() {
           </header>
         </>
       )}
-    </MyContext.Consumer>
+    </AuthContext.Consumer>
   );
 }
 

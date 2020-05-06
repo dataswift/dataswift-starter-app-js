@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import MyContext from './MyContext';
+import AuthContext from './AuthContext';
+import { HatTokenValidation } from '@dataswift/hat-js/lib/utils/HatTokenValidation';
 
 /**
  * MyProvider
@@ -8,7 +9,7 @@ import MyContext from './MyContext';
  * In this case we are storing details about the user and functions to handle authentication.
  */
 
-export class MyProvider extends Component {
+export class AuthProvider extends Component {
   state = {
     user: {
       isAuthenticated: false,
@@ -19,7 +20,7 @@ export class MyProvider extends Component {
 
   render() {
     return (
-      <MyContext.Provider
+      <AuthContext.Provider
         value={{
           user: this.state.user,
           logout: () => {
@@ -34,7 +35,7 @@ export class MyProvider extends Component {
             });
           },
           login: (token, hatName) => {
-            if (token) {
+            if (token && !HatTokenValidation.isEncodedTokenExpired(token)) {
               this.setState({
                 user: {
                   isAuthenticated: true,
@@ -47,7 +48,7 @@ export class MyProvider extends Component {
         }}
       >
         {this.props.children}
-      </MyContext.Provider>
+      </AuthContext.Provider>
     );
   }
 }

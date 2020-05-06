@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import Dashboard from '../dashboard/Dashboard';
-import MyContext from '../context/MyContext';
-import { Jwt } from '@dataswift/hat-js/lib/auth/jwt';
+import AuthContext from '../context/AuthContext';
 import './HomePage.scss';
+import { HatTokenValidation } from '@dataswift/hat-js/lib/utils/HatTokenValidation';
 
 /**
  * HomePage
@@ -12,27 +12,29 @@ import './HomePage.scss';
  */
 
 function HomePage() {
-  const mContext = useContext(MyContext);
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
 
     if (token) {
-      const decodedToken = Jwt.decodeToken(token);
-      if (!Jwt.isExpired(decodedToken)) {
-        mContext.login(token, decodedToken.iss);
+      const decodedToken = HatTokenValidation.decodeToken(token);
+
+      if (!HatTokenValidation.isExpired(decodedToken)) {
+        authContext.login(token, decodedToken.iss);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <MyContext.Consumer>
+    <AuthContext.Consumer>
       {context => (
         <>
           <div className="home-wrapper">{context.user.isAuthenticated && <Dashboard />}</div>
         </>
       )}
-    </MyContext.Consumer>
+    </AuthContext.Consumer>
   );
 }
 

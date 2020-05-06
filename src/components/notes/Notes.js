@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { HatClient } from '@dataswift/hat-js';
 import './Notes.scss';
-import MyContext from '../context/MyContext';
+import AuthContext from '../context/AuthContext';
 import { appConfig } from '../../app.config';
 
 /**
@@ -15,11 +15,11 @@ import { appConfig } from '../../app.config';
 function Notes() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
-  const mContext = useContext(MyContext);
+  const authContext = useContext(AuthContext);
   const notesEndpoint = 'starter-app-js-notes';
 
   const config = {
-    token: mContext.user.token,
+    token: authContext.user.token,
     apiVersion: appConfig.hatApiVersion,
     secure: appConfig.secure,
   };
@@ -32,10 +32,10 @@ function Notes() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    saveData();
+    createData();
   };
 
-  const saveData = async () => {
+  const createData = async () => {
     if (!newNote) return;
     const dateCreated = new Date().toISOString();
 
@@ -51,48 +51,82 @@ function Notes() {
     }
   };
 
-  const fetchNotes = async () => {
-    try {
-      const res = await hat
-        .hatData()
-        .getAll(appConfig.namespace, notesEndpoint, { ordering: 'descending', orderBy: 'dateCreated' });
-
-      if (res.parsedBody) {
-        setNotes(res.parsedBody);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const deleteData = async recordId => {
     try {
       const res = await hat.hatData().delete([recordId]);
 
       if (res.parsedBody) {
-        fetchNotes();
+        setNotes(prevNotes => {
+          // Find index to remove from the Note array
+          const index = prevNotes.findIndex(note => note.recordId === recordId);
+
+          if (index !== -1) {
+            const draft = [...prevNotes];
+            draft.splice(index, 1);
+            return draft;
+          } else {
+            return prevNotes;
+          }
+        });
       }
     } catch (e) {
-      console.log(e);
+      console.log(e.cause + e.status);
     }
   };
 
   const updateData = async hatRecord => {
+    const noteIndex = notes.indexOf(hatRecord);
     hatRecord.data.value += 1;
     try {
       const res = await hat.hatData().update([hatRecord]);
 
       if (res.parsedBody) {
-        fetchNotes();
+        setNotes(prevNotes => {
+          const draft = [...prevNotes];
+          draft[noteIndex] = res.parsedBody[0];
+          return draft;
+        });
       }
     } catch (e) {
-      console.log(e);
+      console.log(e.cause + e.status);
+    }
+  };
+
+  const fetchNotes = async () => {
+    try {
+      const res = await hat.hatData().getAllDefault(appConfig.namespace, notesEndpoint);
+
+      if (res.parsedBody) {
+        setNotes(res.parsedBody);
+      }
+    } catch (e) {
+      console.log(e.cause + e.status);
     }
   };
 
   useEffect(() => {
     fetchNotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const ListNotes = () =>
+    notes
+      .sort((a, b) => new Date(b.data.dateCreated) - new Date(a.data.dateCreated))
+      .map((item, index) => {
+        return (
+          <li key={index}>
+            <div className={'note-row-wrapper'}>
+              <div className={'note-content'}>{item.data.value}</div>
+              <button type={'button'} onClick={() => deleteData(item.recordId)}>
+                <i className={'material-icons'}>delete</i>
+              </button>
+              <button type={'button'} onClick={() => updateData(item)}>
+                <i className={'material-icons'}>edit</i>
+              </button>
+            </div>
+          </li>
+        );
+      });
 
   return (
     <form
@@ -111,29 +145,13 @@ function Notes() {
       />
 
       <div className={'flex-spacer-small'} />
-
       <button className={'btn btn-accent'} type={'submit'}>
         Save
       </button>
-
       <div className={'flex-spacer-small'} />
 
       <ul className={'notes-list'}>
-        {notes.map((item, index) => {
-          return (
-            <li key={index}>
-              <div className={'note-row-wrapper'}>
-                <div className={'note-content'}>{item.data.value}</div>
-                <button type={'button'} onClick={() => deleteData(item.recordId)}>
-                  <i className={'material-icons'}>delete</i>
-                </button>
-                <button type={'button'} onClick={() => updateData(item)}>
-                  <i className={'material-icons'}>edit</i>
-                </button>
-              </div>
-            </li>
-          );
-        })}
+        <ListNotes />
       </ul>
     </form>
   );

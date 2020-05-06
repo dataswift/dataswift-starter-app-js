@@ -27,9 +27,9 @@ function RegistrationPage() {
 
   const navigateToHatters = () => {
     const redirectUrl = `http://${window.location.host}/authentication`;
-    const APP_ID = appConfig.applicationId;
+    const applicationId = appConfig.applicationId;
 
-    window.location.href = `https://hatters.dataswift.io/services/baas/signup?email=${user.email}&hat_name=${user.username}&application_id=${APP_ID}&redirect_uri=${redirectUrl}&lang=en`;
+    window.location.href = `https://hatters.dataswift.io/services/baas/signup?email=${user.email}&hat_name=${user.username}&application_id=${applicationId}&redirect_uri=${redirectUrl}&lang=en`;
   };
 
   const handleChange = event => {

@@ -3,7 +3,7 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 6.4em;
+  height: 6.4rem;
   border-bottom: 1px solid #657690;
   padding-left: 10%;
   padding-right: 10%;
@@ -11,7 +11,7 @@ header {
   background: #efefef;
 
   a {
-    font-size: 1.6em;
+    font-size: 1.6rem;
     text-decoration: none;
     color: #4a556b;
     outline: 0;
@@ -25,11 +25,11 @@ header {
     list-style: none;
     align-self: end;
     height: 100%;
-    padding: 20px;
+    padding: 2rem;
 
     li {
       display: inline-block;
-      margin-left: 2em;
+      margin-left: 2rem;
     }
   }
 }

@@ -27,7 +27,7 @@ function AuthenticationHandler() {
       sessionStorage.setItem('token', token);
       history.push('/');
     }
-  }, []);
+  }, [history]);
 
   return <div>Loading...</div>;
 }
