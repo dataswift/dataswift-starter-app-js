@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { HatClient } from '@dataswift/hat-js';
 import './Notes.scss';
-import AuthContext from '../context/AuthContext';
 import { appConfig } from '../../app.config';
+import AuthContext from '../../components/context/AuthContext';
 
 /**
  * Notes
@@ -13,10 +13,10 @@ import { appConfig } from '../../app.config';
  * This is an example of how to read / write / update / delete data from the HAT.
  */
 function Notes() {
-  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
+  const [notes, setNotes] = useState([]);
   const authContext = useContext(AuthContext);
-  const notesEndpoint = 'starter-app-js-notes';
+  const notesEndpoint = 'my-notes';
 
   const config = {
     token: authContext.user.token,
@@ -51,6 +51,24 @@ function Notes() {
     }
   };
 
+  const updateData = async hatRecord => {
+    const noteIndex = notes.indexOf(hatRecord);
+    hatRecord.data.value += '!';
+    try {
+      const res = await hat.hatData().update([hatRecord]);
+
+      if (res.parsedBody) {
+        setNotes(prevNotes => {
+          const draft = [...prevNotes];
+          draft[noteIndex] = res.parsedBody[0];
+          return draft;
+        });
+      }
+    } catch (e) {
+      console.log(e.cause + e.status);
+    }
+  };
+
   const deleteData = async recordId => {
     try {
       const res = await hat.hatData().delete([recordId]);
@@ -67,24 +85,6 @@ function Notes() {
           } else {
             return prevNotes;
           }
-        });
-      }
-    } catch (e) {
-      console.log(e.cause + e.status);
-    }
-  };
-
-  const updateData = async hatRecord => {
-    const noteIndex = notes.indexOf(hatRecord);
-    hatRecord.data.value += 1;
-    try {
-      const res = await hat.hatData().update([hatRecord]);
-
-      if (res.parsedBody) {
-        setNotes(prevNotes => {
-          const draft = [...prevNotes];
-          draft[noteIndex] = res.parsedBody[0];
-          return draft;
         });
       }
     } catch (e) {
@@ -149,7 +149,6 @@ function Notes() {
         Save
       </button>
       <div className={'flex-spacer-small'} />
-
       <ul className={'notes-list'}>
         <ListNotes />
       </ul>

@@ -1,0 +1,22 @@
+.home-wrapper {
+    min-height: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-image: linear-gradient(to bottom, rgba(74, 85, 107, 0.2), rgba(0, 0, 0, 0.66)), url('../../assets/images/background-image.jpg');
+}
+
+.home-private {
+    height: 100%;
+    width: 100%;
+
+    .container {
+        border-radius: 6px;
+        padding: 2.4rem;
+    }
+
+    .content {
+        background: #e9e9e9;
+        padding: 2.4rem;
+        border-radius: 6px;
+    }
+}

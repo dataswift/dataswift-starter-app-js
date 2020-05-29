@@ -3,21 +3,20 @@ import { appConfig } from '../../app.config';
 import { isEmail, isHatName } from '../../utils/validations';
 
 /**
- * RegistrationPage
+ * SignupPage
  *
  * This is the Registration Page of our App, it is accessible at the '/signup' route.
  *
  * In this example we are using the BaaS (Backend as a Service) solution.
  */
 
-function RegistrationPage() {
+function SignupPage() {
   const initUser = {
     username: '',
     email: '',
   };
 
   const [user, setUser] = useState(initUser);
-  const [hasError, setHasError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   const errorMessages = {
@@ -37,7 +36,7 @@ function RegistrationPage() {
     const value = event.target.value;
 
     setUser({ ...user, [name]: value });
-    setHasError(false);
+    setErrorMsg('');
   };
 
   const handleSubmit = event => {
@@ -58,7 +57,6 @@ function RegistrationPage() {
 
     if (errorMsg) {
       setErrorMsg(errorMsg);
-      setHasError(true);
     }
   };
 
@@ -70,7 +68,7 @@ function RegistrationPage() {
       <div className={'flex-spacer-small'} />
 
       <input
-        className={` ${hasError ? 'input-error-field' : null}`}
+        className={` ${errorMsg ? 'input-error-field' : null}`}
         name={'username'}
         type={'text'}
         placeholder="Username"
@@ -78,9 +76,8 @@ function RegistrationPage() {
         value={user.username}
         onChange={e => handleChange(e)}
       />
-      {hasError && <div className={'input-error-label'}>{errorMsg}</div>}
       <input
-        className={` ${hasError ? 'input-error-field' : null}`}
+        className={` ${errorMsg ? 'input-error-field' : null}`}
         name={'email'}
         type={'text'}
         placeholder="Email"
@@ -88,9 +85,9 @@ function RegistrationPage() {
         value={user.email}
         onChange={e => handleChange(e)}
       />
-      {hasError && <div className={'input-error-label'}>{errorMsg}</div>}
+      {errorMsg && <div className={'input-error-label'}>{errorMsg}</div>}
 
-      <div className={'flex-spacer-small'} />
+      <div className={'flex-spacer-large'} />
 
       <button className={'btn btn-accent'} type={'submit'}>
         Next
@@ -101,4 +98,4 @@ function RegistrationPage() {
   );
 }
 
-export default RegistrationPage;
+export default SignupPage;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { getParameterByName } from '../../utils/windowHelper';
 import { useHistory } from 'react-router';
+import { getParameterByName } from '../../utils/windowHelper';
 
 /**
  * AuthenticationHandler

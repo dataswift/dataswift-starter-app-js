@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from '../header/Header';
-import AuthenticationHandler from '../authentication/AuthenticationHandler';
-import HomePage from '../home/HomePage';
-import LoginPage from '../authentication/LoginPage';
-import RegistrationPage from '../registration/RegistrationPage';
+import HomePage from '../features/Home/HomePage';
+import Header from '../components/header/Header';
+import LoginPage from '../features/Login/LoginPage';
+import AuthenticationHandler from '../features/Login/AuthenticationHandler';
+import SignupPage from '../features/Signup/SignupPage';
 
 /**
  * Routing
@@ -19,7 +19,7 @@ function Routing() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={RegistrationPage} />
+        <Route path="/signup" component={SignupPage} />
         <Route path="/authentication" component={AuthenticationHandler} />
       </Switch>
     </Router>

@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import Dashboard from '../dashboard/Dashboard';
-import AuthContext from '../context/AuthContext';
 import './HomePage.scss';
 import { HatTokenValidation } from '@dataswift/hat-js/lib/utils/HatTokenValidation';
+import AuthContext from '../../components/context/AuthContext';
+import HomePrivate from './HomePrivate';
 
 /**
  * HomePage
@@ -31,7 +31,7 @@ function HomePage() {
     <AuthContext.Consumer>
       {context => (
         <>
-          <div className="home-wrapper">{context.user.isAuthenticated && <Dashboard />}</div>
+          <div className="home-wrapper">{context.user.isAuthenticated && <HomePrivate />}</div>
         </>
       )}
     </AuthContext.Consumer>
