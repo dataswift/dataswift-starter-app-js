@@ -1,7 +1,7 @@
-# HAT Starter app for JavaScript
+# Dataswift JS Starter app
 [Open a new issue on Github][2]
 
-A simple application showcasing how you can work with the `HAT` in a JavaScript app. 
+A simple application showcasing how you can work with Dataswift's PDA, aka HAT Microserver, in a JavaScript app. 
 The purpose of the app is to showcase log in, registration and simple read/write operations. 
 Also you can use it to build your own application on HAT.
 ​
