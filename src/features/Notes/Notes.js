@@ -134,11 +134,11 @@ function Notes() {
       className={'notes-wrapper flex-column-wrapper flex-content-center flex-align-items-center'}
     >
       <div className={'flex-spacer-small'} />
-      <h3>Save a note on your HAT</h3>
+      <h3>Write a note on your PDA</h3>
       <input
         name={'note'}
         type={'text'}
-        placeholder="What's on your mind?"
+        placeholder="Remember to ..."
         autoComplete={'text'}
         value={newNote}
         onChange={e => handleChange(e)}

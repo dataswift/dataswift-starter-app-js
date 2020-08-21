@@ -1,7 +1,7 @@
-# HAT Starter app for JavaScript
+# Dataswift JS Starter app
 [Open a new issue on Github][2]
 
-A simple application showcasing how you can work with the `HAT` in a JavaScript app. 
+A simple application showcasing how you can work with Dataswift's PDA, aka HAT Microserver, in a JavaScript app. 
 The purpose of the app is to showcase log in, registration and simple read/write operations. 
 Also you can use it to build your own application on HAT.
 ​
@@ -63,7 +63,7 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 [1]: https://developers.hubofallthings.com/guides/hat-js-guide
-[2]: https://github.com/Hub-of-all-Things/hat-starter-app-js/issues
+[2]: https://github.com/dataswift/dataswift-starter-app-js/issues
 [3]: https://nodejs.org/
 [4]: https://docs.dataswift.io/documentation/quick-start#run-hat-locally-from-source-code
 [5]: https://docs.dataswift.io/guides/hat-login

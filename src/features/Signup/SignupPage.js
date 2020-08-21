@@ -64,34 +64,15 @@ function SignupPage() {
     <form onSubmit={e => handleSubmit(e)} className={'flex-column-wrapper flex-content-center flex-align-items-center'}>
       <div className={'flex-spacer-small'} />
 
-      <h3>Create Account</h3>
+      <h1>Create a dev sandbox PDA at</h1>
+      <h1><a href="https://hatters.dataswift.io/sandbox" target="_blank" rel="noopener noreferrer">https://hatters.dataswift.io/sandbox</a></h1>
       <div className={'flex-spacer-small'} />
-
-      <input
-        className={` ${errorMsg ? 'input-error-field' : null}`}
-        name={'username'}
-        type={'text'}
-        placeholder="Username"
-        autoComplete={'username'}
-        value={user.username}
-        onChange={e => handleChange(e)}
-      />
-      <input
-        className={` ${errorMsg ? 'input-error-field' : null}`}
-        name={'email'}
-        type={'text'}
-        placeholder="Email"
-        autoComplete={'email'}
-        value={user.email}
-        onChange={e => handleChange(e)}
-      />
+      
       {errorMsg && <div className={'input-error-label'}>{errorMsg}</div>}
 
       <div className={'flex-spacer-large'} />
 
-      <button className={'btn btn-accent'} type={'submit'}>
-        Next
-      </button>
+      
 
       <div className={'flex-spacer-small'} />
     </form>
