@@ -63,7 +63,7 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 [1]: https://developers.hubofallthings.com/guides/hat-js-guide
-[2]: https://github.com/Hub-of-all-Things/hat-starter-app-js/issues
+[2]: https://github.com/dataswift/dataswift-starter-app-js/issues
 [3]: https://nodejs.org/
 [4]: https://docs.dataswift.io/documentation/quick-start#run-hat-locally-from-source-code
 [5]: https://docs.dataswift.io/guides/hat-login
