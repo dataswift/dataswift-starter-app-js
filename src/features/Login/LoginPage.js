@@ -14,8 +14,8 @@ function LoginPage() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const errorMessages = {
-    usernameNotValid: 'Sorry, this username is not valid',
-    usernameNotRecognised: 'Sorry, this username is not recognised',
+    usernameNotValid: 'Username is not valid. Try without the domain',
+    usernameNotRecognised: 'Username is not recognised. Try without the domain',
   };
 
   const redirectValidUser = async username => {
@@ -68,9 +68,9 @@ function LoginPage() {
 
       <input
         className={` ${errorMsg ? 'input-error-field' : null}`}
-        name={'username'}
+        name={'123456dev (.hubat.net)'}
         type={'text'}
-        placeholder="Username"
+        placeholder="123456dev (.hubat.net)"
         autoComplete={'username'}
         value={username}
         onChange={e => handleChange(e)}
