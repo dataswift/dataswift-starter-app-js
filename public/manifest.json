@@ -1,6 +1,6 @@
 {
-  "short_name": "HAT Starter App",
-  "name": "HAT starter application for JavaScript",
+  "short_name": "Dataswift JS Starter App",
+  "name": "Dataswift JS starter application",
   "icons": [
     {
       "src": "favicon.ico",
