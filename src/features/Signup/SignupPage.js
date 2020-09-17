@@ -31,6 +31,7 @@ function SignupPage() {
     window.location.href = `https://hatters.dataswift.io/services/baas/signup?email=${user.email}&hat_name=${user.username}&application_id=${applicationId}&redirect_uri=${redirectUrl}&lang=en`;
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleChange = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -65,14 +66,16 @@ function SignupPage() {
       <div className={'flex-spacer-small'} />
 
       <h1>Create a dev sandbox PDA at</h1>
-      <h1><a href="https://hatters.dataswift.io/sandbox" target="_blank" rel="noopener noreferrer">https://hatters.dataswift.io/sandbox</a></h1>
+      <h1>
+        <a href="https://hatters.dataswift.io/sandbox" target="_blank" rel="noopener noreferrer">
+          https://hatters.dataswift.io/sandbox
+        </a>
+      </h1>
       <div className={'flex-spacer-small'} />
-      
+
       {errorMsg && <div className={'input-error-label'}>{errorMsg}</div>}
 
       <div className={'flex-spacer-large'} />
-
-      
 
       <div className={'flex-spacer-small'} />
     </form>
