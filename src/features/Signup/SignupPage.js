@@ -65,14 +65,16 @@ function SignupPage() {
       <div className={'flex-spacer-small'} />
 
       <h1>Create a dev sandbox PDA at</h1>
-      <h1><a href="https://hatters.dataswift.io/sandbox" target="_blank" rel="noopener noreferrer">https://hatters.dataswift.io/sandbox</a></h1>
+      <h1>
+        <a href="https://hatters.dataswift.io/sandbox" target="_blank" rel="noopener noreferrer">
+          https://hatters.dataswift.io/sandbox
+        </a>
+      </h1>
       <div className={'flex-spacer-small'} />
-      
+
       {errorMsg && <div className={'input-error-label'}>{errorMsg}</div>}
 
       <div className={'flex-spacer-large'} />
-
-      
 
       <div className={'flex-spacer-small'} />
     </form>
