@@ -13,8 +13,10 @@ import AuthContext from '../../components/context/AuthContext';
  * This is an example of how to read / write / update / delete data from the HAT.
  */
 function Notes() {
-  const [newNote, setNewNote] = useState('');
+  const [currentState, setCurrentState] = useState('creating');
+  const [currentNote, setCurrentNote] = useState('');
   const [notes, setNotes] = useState([]);
+  const [noteToUpdate, setNoteToUpdate] = useState({});
   const authContext = useContext(AuthContext);
   const notesEndpoint = 'my-notes';
 
@@ -27,35 +29,39 @@ function Notes() {
   const hat = new HatClient(config);
 
   const handleChange = event => {
-    setNewNote(event.target.value);
+    setCurrentNote(event.target.value);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    createData();
+    if (currentState === 'creating') {
+      createData();
+    } else {
+      updateData();
+    }
   };
 
   const createData = async () => {
-    if (!newNote) return;
+    if (!currentNote) return;
     const dateCreated = new Date().toISOString();
 
     const body = {
-      value: newNote,
+      value: currentNote,
       dateCreated: dateCreated,
     };
     const res = await hat.hatData().create(appConfig.namespace, notesEndpoint, body);
 
     if (res.parsedBody) {
-      setNewNote('');
+      setCurrentNote('');
       fetchNotes();
     }
   };
 
-  const updateData = async hatRecord => {
-    const noteIndex = notes.indexOf(hatRecord);
-    hatRecord.data.value += '!';
+  const updateData = async () => {
+    const noteIndex = notes.indexOf(noteToUpdate);
+    noteToUpdate.data.value = currentNote;
     try {
-      const res = await hat.hatData().update([hatRecord]);
+      const res = await hat.hatData().update([noteToUpdate]);
 
       if (res.parsedBody) {
         setNotes(prevNotes => {
@@ -63,6 +69,10 @@ function Notes() {
           draft[noteIndex] = res.parsedBody[0];
           return draft;
         });
+
+        setCurrentNote('');
+        setCurrentState('creating');
+        setNoteToUpdate({});
       }
     } catch (e) {
       console.log(e.cause + e.status);
@@ -120,7 +130,14 @@ function Notes() {
               <button type={'button'} onClick={() => deleteData(item.recordId)}>
                 <i className={'material-icons'}>delete</i>
               </button>
-              <button type={'button'} onClick={() => updateData(item)}>
+              <button
+                type={'button'}
+                onClick={() => {
+                  setNoteToUpdate(item);
+                  setCurrentNote(item.data.value);
+                  setCurrentState('updating');
+                }}
+              >
                 <i className={'material-icons'}>edit</i>
               </button>
             </div>
@@ -140,13 +157,13 @@ function Notes() {
         type={'text'}
         placeholder="Remember to ..."
         autoComplete={'text'}
-        value={newNote}
+        value={currentNote}
         onChange={e => handleChange(e)}
       />
 
       <div className={'flex-spacer-small'} />
       <button className={'btn btn-accent'} type={'submit'}>
-        Save
+        {currentState === 'creating' ? 'Save' : 'Update'}
       </button>
       <div className={'flex-spacer-small'} />
       <ul className={'notes-list'}>
