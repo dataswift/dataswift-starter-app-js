@@ -10,8 +10,8 @@ You can start by either downloading the project or cloning it.
 ​
 ## Prerequisites
 ```
-Node 12.13.0
-NPM 6.12
+Node 14.16.0
+NPM 7.8.0
 ```
 
 ## Installing
